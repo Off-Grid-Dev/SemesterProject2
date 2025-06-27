@@ -39,7 +39,7 @@ export class CardComponent extends ComponentBase {
 
   render(): void {
     // Clear previous content
-    const existingContent = this.shadowRoot.querySelector('.card-container');
+    const existingContent = this.querySelector('.card-container');
     if (existingContent) {
       existingContent.remove();
     }
@@ -83,10 +83,18 @@ export class CardComponent extends ComponentBase {
     header.appendChild(textContainer);
     cardContainer.appendChild(header);
 
-    // Slot for additional content
-    const contentSlot = this.createElement('div', 'mb-4');
-    const slotElement = document.createElement('slot');
-    contentSlot.appendChild(slotElement);
+    // Content area: move all child nodes except the card container itself
+    const contentSlot = this.createElement('div', 'mb-4 p-4 border border-white bg-amber-50 hover:opacity-70');
+    // Move all child nodes (except the card container) into the contentSlot
+    while (this.childNodes.length > 0) {
+      const node = this.childNodes[0];
+      // Avoid moving the card container itself (shouldn't happen, but just in case)
+      if (node !== cardContainer) {
+        contentSlot.appendChild(node);
+      } else {
+        break;
+      }
+    }
     cardContainer.appendChild(contentSlot);
 
     // Button
@@ -100,8 +108,8 @@ export class CardComponent extends ComponentBase {
     buttonContainer.appendChild(button);
     cardContainer.appendChild(buttonContainer);
 
-    // Append to shadow root
-    this.shadowRoot.appendChild(cardContainer);
+    // Append to root
+    this.appendChild(cardContainer);
   }
 }
 
