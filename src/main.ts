@@ -1,3 +1,5 @@
+import './components/Card';
+
 const route = () => {
   const app: HTMLElement | null = document.getElementById('app');
   const href = window.location.pathname;
