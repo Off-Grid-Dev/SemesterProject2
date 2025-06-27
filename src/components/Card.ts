@@ -1,6 +1,4 @@
-// src/components/Card.ts
-
-import { ComponentBase } from '../abstract/component-base';
+import { ComponentBase } from '../abstract/ComponentBase';
 
 export interface CardProps {
   avatar?: string;
@@ -21,7 +19,7 @@ export class CardComponent extends ComponentBase {
 
   private getButtonClasses(variant: string = 'primary'): string {
     const baseClasses = 'px-4 py-2 rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2';
-    
+
     switch (variant) {
       case 'secondary':
         return `${baseClasses} bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500`;
@@ -69,7 +67,7 @@ export class CardComponent extends ComponentBase {
 
     // Title and description container
     const textContainer = this.createElement('div', 'flex-1 min-w-0');
-    
+
     if (this.props.title) {
       const title = this.createElement('h3', 'text-lg font-semibold text-gray-900 truncate');
       title.textContent = this.props.title;
@@ -94,10 +92,10 @@ export class CardComponent extends ComponentBase {
     // Button
     const buttonText = this.props.buttonText || this.props['button-text'] || 'Action';
     const buttonVariant = this.props.buttonVariant || this.props['button-variant'] || 'primary';
-    
+
     const buttonClasses = this.getButtonClasses(buttonVariant);
     const button = this.createButton(buttonText, buttonClasses, this.handleButtonClick);
-    
+
     const buttonContainer = this.createElement('div', 'flex justify-end');
     buttonContainer.appendChild(button);
     cardContainer.appendChild(buttonContainer);

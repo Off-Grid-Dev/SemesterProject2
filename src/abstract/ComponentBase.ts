@@ -4,7 +4,7 @@ export interface ComponentProps {
 
 export abstract class ComponentBase extends HTMLElement {
   protected props: ComponentProps = {};
-  protected shadowRoot: ShadowRoot;
+  shadowRoot: ShadowRoot;
 
   constructor() {
     super();
