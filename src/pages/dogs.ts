@@ -9,5 +9,5 @@ export const render = (app: HTMLElement) => {
       button-variant="outline"
     >
     </custom-card>
-    `
-}
+    `;
+};
