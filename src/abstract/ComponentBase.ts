@@ -9,7 +9,6 @@ export abstract class ComponentBase extends HTMLElement {
   constructor() {
     super();
     this.shadowRoot = this.attachShadow({ mode: 'open' });
-    // this.setupTailwind();
   }
 
   connectedCallback() {
@@ -51,14 +50,6 @@ export abstract class ComponentBase extends HTMLElement {
       this.props[attr] = value
     })
   }
-
-  // protected setupTailwind(): void {
-  //   // include Tailwind CDN in shadowdom
-  //   const tailwindLink = document.createElement('link');
-  //   tailwindLink.rel = 'stylesheet';
-  //   tailwindLink.href = 'https://cdn.tailwindcss.com';
-  //   this.shadowRoot.appendChild(tailwindLink);
-  // }
 
   protected createElement(tag: string, classes: string = '', attributes: Record<string, string> = {}): HTMLElement {
     const element = document.createElement(tag);
