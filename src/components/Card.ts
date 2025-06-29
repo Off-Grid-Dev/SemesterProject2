@@ -33,8 +33,10 @@ export class CardComponent extends ComponentBase {
 
   private handleButtonClick = (): void => {
     this.emit("card-button-click", {
-      title: this.props.title,
-      buttonText: this.props.buttonText || this.props["button-text"],
+      title: String(this.props.title ?? ""),
+      buttonText: String(
+        this.props.buttonText ?? this.props["button-text"] ?? "",
+      ),
     });
   };
 
@@ -61,7 +63,7 @@ export class CardComponent extends ComponentBase {
     if (this.props.avatar) {
       const avatarContainer = this.createElement("div", "flex-shrink-0");
       const avatar = this.createImage(
-        this.props.avatar,
+        String(this.props.avatar ?? ""),
         "Avatar",
         "w-12 h-12 rounded-full object-cover border-2 border-gray-200",
       );
@@ -77,13 +79,13 @@ export class CardComponent extends ComponentBase {
         "h3",
         "text-lg font-semibold text-gray-900 truncate",
       );
-      title.textContent = this.props.title;
+      title.textContent = String(this.props.title ?? "");
       textContainer.appendChild(title);
     }
 
     if (this.props.description) {
       const description = this.createElement("p", "text-sm text-gray-600 mt-1");
-      description.textContent = this.props.description;
+      description.textContent = String(this.props.description ?? "");
       textContainer.appendChild(description);
     }
 
@@ -91,10 +93,12 @@ export class CardComponent extends ComponentBase {
     cardContainer.appendChild(header);
 
     // Button
-    const buttonText =
-      this.props.buttonText || this.props["button-text"] || "Action";
-    const buttonVariant =
-      this.props.buttonVariant || this.props["button-variant"] || "primary";
+    const buttonText = String(
+      this.props.buttonText ?? this.props["button-text"] ?? "Action",
+    );
+    const buttonVariant = String(
+      this.props.buttonVariant ?? this.props["button-variant"] ?? "primary",
+    );
 
     const buttonClasses = this.getButtonClasses(buttonVariant);
     const button = this.createButton(

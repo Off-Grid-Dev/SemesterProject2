@@ -94,7 +94,7 @@ export abstract class ComponentBase extends HTMLElement {
     return img;
   }
 
-  protected emit(eventName: string, detail?: string): void {
+  protected emit(eventName: string, detail?: unknown): void {
     const event = new CustomEvent(eventName, {
       detail,
       bubbles: true,
