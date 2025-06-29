@@ -1,4 +1,5 @@
 import "./components/Card";
+import "./components/layout/Wrapper";
 
 export const route = () => {
   const app: HTMLElement | null = document.getElementById("app");
