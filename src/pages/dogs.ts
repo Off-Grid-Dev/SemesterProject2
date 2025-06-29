@@ -1,6 +1,5 @@
-export const render = (app: HTMLElement) => {
-  app.innerHTML = `
-    <h1>DOGS!</h1>
+export const render = (grid: HTMLElement) => {
+  grid.innerHTML = `
     <custom-card
       avatar="https://example.com/avatar.jpg"
       title="Mr. Pickles"
