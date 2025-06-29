@@ -6,7 +6,6 @@ export class WrapperComponent extends ComponentBase {
   }
 
   render(): void {
-    // Clear previous content
     const container = this.createElement(
       "div",
       "md:max-w-[1140px] md:mx-auto sm:mx-[1rem] p-4 bg-primary-300"
