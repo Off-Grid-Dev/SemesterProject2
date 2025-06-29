@@ -52,4 +52,15 @@ const fetchDogs = async () => {
   }
 };
 
+export const fetchDogById = async (id: string): Promise<Dog | null> => {
+  try {
+    const response = await fetch(`${API_BASE}/${id}`);
+    if (!response.ok) return null;
+    const data = await response.json();
+    return data.data;
+  } catch {
+    return null;
+  }
+};
+
 export { fetchDogs };

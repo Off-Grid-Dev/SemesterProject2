@@ -13,11 +13,18 @@ export const render = async (app: HTMLElement) => {
 
   dogs.forEach((dog: Dog) => {
     const card = document.createElement("custom-card");
+    card.setAttribute("id", dog.id);
     card.setAttribute("avatar", dog.image.url);
     card.setAttribute("title", dog.name);
     card.setAttribute("description", dog.description);
     card.setAttribute("button-text", "See more");
     card.setAttribute("button-variant", "outline");
+
+    card.addEventListener("card-button-click", (e: Event) => {
+      window.history.pushState({}, "", `/dog/${dog.id}`);
+      // @ts-ignore
+      if (typeof window.route === "function") window.route();
+    });
 
     app.appendChild(card);
   });

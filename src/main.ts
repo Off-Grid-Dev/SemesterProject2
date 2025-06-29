@@ -1,24 +1,23 @@
-import './components/Card';
+import "./components/Card";
 
-const route = () => {
-  const app: HTMLElement | null = document.getElementById('app');
+export const route = () => {
+  const app: HTMLElement | null = document.getElementById("app");
   const href = window.location.pathname;
 
   if (!app) {
     return;
   }
 
-  switch (href) {
-    case '/': {
-      import('./pages/home').then(module => module.render(app));
-      break;
-    }
-    case '/dogs': {
-      import('./pages/dogs').then(module => module.render(app));
-      break;
-    }
+  if (href === "/") {
+    import("./pages/home").then((module) => module.render(app));
+  } else if (href === "/dogs") {
+    import("./pages/dogs").then((module) => module.render(app));
+  } else if (href.startsWith("/dog/")) {
+    const id = href.split("/dog/")[1];
+    import("./pages/dog").then((module) => module.render(app, id));
   }
-
-}
+};
 
 route();
+// Make route globally accessible for navigation from other modules
+(window as any).route = route;
