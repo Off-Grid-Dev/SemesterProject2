@@ -20,7 +20,7 @@ export const render = async (app: HTMLElement) => {
     card.setAttribute("button-text", "See more");
     card.setAttribute("button-variant", "outline");
 
-    card.addEventListener("card-button-click", (e: Event) => {
+    card.addEventListener("card-button-click", () => {
       window.history.pushState({}, "", `/dog/${dog.id}`);
       // @ts-ignore
       if (typeof window.route === "function") window.route();
