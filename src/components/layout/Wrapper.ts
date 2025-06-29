@@ -8,7 +8,7 @@ export class WrapperComponent extends ComponentBase {
   render(): void {
     const container = this.createElement(
       "div",
-      "md:max-w-[1140px] md:mx-auto sm:mx-[1rem] p-4 bg-primary-300"
+      "md:max-w-[1140px] md:mx-auto sm:mx-[1rem] p-4"
     );
     // Move all children into the container
     while (this.childNodes.length > 0) {
