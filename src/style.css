@@ -41,3 +41,7 @@
   /* Warning Color */
   --color-warning: #FFD700;
 }
+
+body {
+  @apply font-sans bg-amber-50 min-h-screen;
+}

@@ -17,7 +17,7 @@ export class HeaderComponent extends ComponentBase {
     // Logo/Brand
     const brand = this.createElement(
       "a",
-      "font-bold text-2xl tracking-tight hover:text-primary-200 transition-colors",
+      "font-bold text-2xl tracking-tight hover:text-primary-200 transition-colors text-secondary-100",
       { href: "/" }
     );
     brand.textContent = "Pet Adoption";
@@ -31,7 +31,7 @@ export class HeaderComponent extends ComponentBase {
     pages.forEach((page) => {
       const link = this.createElement(
         "a",
-        "py-2 px-4 bg-secondary-500 hover:text-primary-200 transition-colors text-lg font-bold rounded-md",
+        "py-2 px-4 bg-secondary-500 hover:bg-secondary-700 hover:text-primary-200 transition-colors text-lg font-bold rounded-md text-primary-50",
         { href: page.href }
       );
       link.textContent = page.label;
