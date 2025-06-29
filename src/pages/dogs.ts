@@ -1,12 +1,24 @@
-export const render = (grid: HTMLElement) => {
-  grid.innerHTML = `
-    <custom-card
-      avatar="https://example.com/avatar.jpg"
-      title="Mr. Pickles"
-      description="Mr. Pickles likes to eat shoes"
-      button-text="See more"
-      button-variant="outline"
-    >
-    </custom-card>
-    `;
+import { fetchDogs } from "../api/fetch";
+import type { Dog } from "../api/fetch";
+
+export const render = async (app: HTMLElement) => {
+  app.innerHTML = "";
+
+  const dogs = await fetchDogs();
+  console.log(dogs);
+  if (!dogs) {
+    app.innerHTML = "<p>OH NO! NO DOGS HERE!</p>";
+    return;
+  }
+
+  dogs.forEach((dog: Dog) => {
+    const card = document.createElement("custom-card");
+    card.setAttribute("avatar", dog.image.url);
+    card.setAttribute("title", dog.name);
+    card.setAttribute("description", dog.description);
+    card.setAttribute("button-text", "See more");
+    card.setAttribute("button-variant", "outline");
+
+    app.appendChild(card);
+  });
 };
