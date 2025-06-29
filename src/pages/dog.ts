@@ -53,10 +53,10 @@ export const render = async (app: HTMLElement, id: string) => {
         dog.location
       }</span></li>
       <li><strong>Created:</strong> <span class='text-secondary-700'>${new Date(
-        dog.created
+        dog.created,
       ).toLocaleString()}</span></li>
       <li><strong>Updated:</strong> <span class='text-secondary-700'>${new Date(
-        dog.updated
+        dog.updated,
       ).toLocaleString()}</span></li>
     </ul>
     <h2 class="text-xl font-bold mb-2 text-primary-700">Owner</h2>
@@ -71,11 +71,11 @@ export const render = async (app: HTMLElement, id: string) => {
         dog.owner.bio ?? "N/A"
       }</span></li>
       <li><strong>Avatar:</strong> <img src="${dog.owner.avatar.url}" alt="${
-    dog.owner.avatar.alt
-  }" class="inline-block w-12 h-12 rounded-full border ml-2 align-middle border-secondary-300" /></li>
+        dog.owner.avatar.alt
+      }" class="inline-block w-12 h-12 rounded-full border ml-2 align-middle border-secondary-300" /></li>
       <li><strong>Banner:</strong> <img src="${dog.owner.banner.url}" alt="${
-    dog.owner.banner.alt
-  }" class="inline-block w-32 h-12 rounded border ml-2 align-middle object-cover border-secondary-300" /></li>
+        dog.owner.banner.alt
+      }" class="inline-block w-32 h-12 rounded border ml-2 align-middle object-cover border-secondary-300" /></li>
     </ul>
   `;
 

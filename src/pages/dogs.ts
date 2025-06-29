@@ -22,7 +22,6 @@ export const render = async (app: HTMLElement) => {
 
     card.addEventListener("card-button-click", () => {
       window.history.pushState({}, "", `/dog/${dog.id}`);
-      // @ts-ignore
       if (typeof window.route === "function") window.route();
     });
 

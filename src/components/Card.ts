@@ -48,13 +48,13 @@ export class CardComponent extends ComponentBase {
     // Create card container
     const cardContainer = this.createElement(
       "div",
-      "card-container bg-white rounded-xl shadow-lg border border-gray-200 p-6 max-w-sm mx-auto hover:shadow-xl transition-shadow duration-300"
+      "card-container bg-white rounded-xl shadow-lg border border-gray-200 p-6 max-w-sm mx-auto hover:shadow-xl transition-shadow duration-300",
     );
 
     // Create card header with avatar and title
     const header = this.createElement(
       "div",
-      "flex items-center space-x-4 mb-4"
+      "flex items-center space-x-4 mb-4",
     );
 
     // Avatar
@@ -63,7 +63,7 @@ export class CardComponent extends ComponentBase {
       const avatar = this.createImage(
         this.props.avatar,
         "Avatar",
-        "w-12 h-12 rounded-full object-cover border-2 border-gray-200"
+        "w-12 h-12 rounded-full object-cover border-2 border-gray-200",
       );
       avatarContainer.appendChild(avatar);
       header.appendChild(avatarContainer);
@@ -75,7 +75,7 @@ export class CardComponent extends ComponentBase {
     if (this.props.title) {
       const title = this.createElement(
         "h3",
-        "text-lg font-semibold text-gray-900 truncate"
+        "text-lg font-semibold text-gray-900 truncate",
       );
       title.textContent = this.props.title;
       textContainer.appendChild(title);
@@ -100,7 +100,7 @@ export class CardComponent extends ComponentBase {
     const button = this.createButton(
       buttonText,
       buttonClasses,
-      this.handleButtonClick
+      this.handleButtonClick,
     );
 
     const buttonContainer = this.createElement("div", "flex justify-end");

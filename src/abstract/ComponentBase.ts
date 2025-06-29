@@ -1,5 +1,5 @@
 export interface ComponentProps {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export abstract class ComponentBase extends HTMLElement {
@@ -29,27 +29,31 @@ export abstract class ComponentBase extends HTMLElement {
   protected extractProps(): void {
     // extract attributes as props
     const attributes = this.getAttributeNames();
-    attributes.forEach(attr => {
-      let value: any = this.getAttribute(attr);
+    attributes.forEach((attr) => {
+      let value: string | null | boolean = this.getAttribute(attr);
 
       // Try to parse JSON for complex props
-      if (value && (value.startsWith('{') || value.startsWith('['))) {
+      if (value && (value.startsWith("{") || value.startsWith("["))) {
         try {
           value = JSON.parse(value);
-        } catch (e) {
-          // Keep as string if not valid JSON        
+        } catch {
+          // Keep as string if not valid JSON
         }
       }
 
       // Convert string booleans
-      if (value === 'true') value = true;
-      if (value === 'false') value = false;
+      if (value === "true") value = true;
+      if (value === "false") value = false;
 
-      this.props[attr] = value
-    })
+      this.props[attr] = value;
+    });
   }
 
-  protected createElement(tag: string, classes: string = '', attributes: Record<string, string> = {}): HTMLElement {
+  protected createElement(
+    tag: string,
+    classes: string = "",
+    attributes: Record<string, string> = {},
+  ): HTMLElement {
     const element = document.createElement(tag);
     if (classes) {
       element.className = classes;
@@ -62,28 +66,39 @@ export abstract class ComponentBase extends HTMLElement {
     return element;
   }
 
-  protected createButton(text: string, classes: string = '', onClick?: () => void): HTMLButtonElement {
-    const button = this.createElement('button', classes) as HTMLButtonElement;
+  protected createButton(
+    text: string,
+    classes: string = "",
+    onClick?: () => void,
+  ): HTMLButtonElement {
+    const button = this.createElement("button", classes) as HTMLButtonElement;
     button.textContent = text;
-    button.type = 'button';
+    button.type = "button";
 
     if (onClick) {
-      button.addEventListener('click', onClick);
+      button.addEventListener("click", onClick);
     }
 
     return button;
   }
 
-  protected createImage(src: string, alt: string = '', classes: string = ''): HTMLImageElement {
-    const img = this.createElement('img', classes, { src, alt }) as HTMLImageElement;
+  protected createImage(
+    src: string,
+    alt: string = "",
+    classes: string = "",
+  ): HTMLImageElement {
+    const img = this.createElement("img", classes, {
+      src,
+      alt,
+    }) as HTMLImageElement;
     return img;
   }
 
-  protected emit(eventName: string, detail?: any): void {
+  protected emit(eventName: string, detail?: string): void {
     const event = new CustomEvent(eventName, {
       detail,
       bubbles: true,
-      composed: true
+      composed: true,
     });
     this.dispatchEvent(event);
   }
@@ -98,6 +113,6 @@ export abstract class ComponentBase extends HTMLElement {
 
   // Utility method to append multiple children
   protected appendChildren(parent: HTMLElement, children: HTMLElement[]): void {
-    children.forEach(child => parent.appendChild(child));
+    children.forEach((child) => parent.appendChild(child));
   }
 }

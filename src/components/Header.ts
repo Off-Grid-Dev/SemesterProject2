@@ -11,14 +11,14 @@ export class HeaderComponent extends ComponentBase {
     // Constrained container (same as Wrapper)
     const container = this.createElement(
       "div",
-      "md:max-w-[1140px] md:mx-auto sm:mx-[1rem] p-4 flex items-center justify-between flex-wrap"
+      "md:max-w-[1140px] md:mx-auto sm:mx-[1rem] p-4 flex items-center justify-between flex-wrap",
     );
 
     // Logo/Brand
     const brand = this.createElement(
       "a",
       "font-bold text-2xl tracking-tight hover:text-primary-200 transition-colors text-secondary-100",
-      { href: "/" }
+      { href: "/" },
     );
     brand.textContent = "Pet Adoption";
 
@@ -32,7 +32,7 @@ export class HeaderComponent extends ComponentBase {
       const link = this.createElement(
         "a",
         "py-2 px-4 bg-secondary-500 hover:bg-secondary-700 hover:text-primary-200 transition-colors text-lg font-bold rounded-md text-primary-50",
-        { href: page.href }
+        { href: page.href },
       );
       link.textContent = page.label;
       links.appendChild(link);

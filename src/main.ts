@@ -2,6 +2,12 @@ import "./components/layout/Wrapper";
 import "./components/Header";
 import "./components/Card";
 
+declare global {
+  interface Window {
+    route: () => void;
+  }
+}
+
 export const route = () => {
   const app: HTMLElement | null = document.getElementById("app");
   const href = window.location.pathname;
@@ -22,4 +28,4 @@ export const route = () => {
 
 route();
 // Make route globally accessible for navigation from other modules
-(window as any).route = route;
+window.route = route;

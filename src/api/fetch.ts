@@ -41,7 +41,7 @@ const fetchDogs = async () => {
     if (!response.ok) {
       throw new Error(
         `There was a problem with the resonse:
-        ${response.status}`
+        ${response.status}`,
       );
     }
     const data = await response.json();
