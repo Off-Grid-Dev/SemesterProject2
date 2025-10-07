@@ -48,19 +48,25 @@ const fetchDogs = async () => {
     return data.data;
   } catch (err) {
     console.error("We couldn't get the dogs!\n", err);
-    throw new Error(`Oh no! No dogs! ${err}`);
+    throw new Error(`Oh no! No dogs fetched! ${err}`);
   }
 };
 
-export const fetchDogById = async (id: string): Promise<Dog | null> => {
+const fetchDogById = async (id: string) => {
   try {
     const response = await fetch(`${API_BASE}/${id}`);
-    if (!response.ok) return null;
+    if (!response.ok) {
+      throw new Error(
+        `There was a problem with the resonse:
+        ${response.status}`,
+      );
+    }
     const data = await response.json();
     return data.data;
-  } catch {
-    return null;
+  } catch (err) {
+    console.error("We couldn't get the dog info!\n", err);
+    throw new Error(`Oh no! No dog info fetched! ${err}`);
   }
 };
 
-export { fetchDogs };
+export { fetchDogs, fetchDogById };
