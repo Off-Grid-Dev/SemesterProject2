@@ -3,6 +3,7 @@ import type { Dog as DogType } from "../api/fetch";
 import { useParams } from "react-router";
 import { ErrorBoundary } from "react-error-boundary";
 import { getDogById } from "../api/resources";
+import Wrapper from "../components/layout/Wrapper";
 
 const dogPromises = new Map<string, Promise<DogType | null>>();
 
@@ -20,11 +21,15 @@ const DogData = () => {
     ? use(getDogPromise(id.replace(/^:/, "")))
     : null;
   return (
-    <>
+    <Wrapper>
       {dogData ? (
-        <div className="mt-6 bg-primary-50 rounded-lg p-6 shadow text-primary-900 border border-primary-200">
-          <h2 className="text-xl font-bold mb-2 text-primary-700">Details</h2>
+        <div className="mt-6 px-6 max-w-[50vw] flex md:flex-row flex-col gap-4 mx-2 bg-primary-50 rounded-lg p-6 shadow text-primary-900 border border-primary-200">
           <ul className="mb-4">
+            <li>
+              <h2 className="text-xl font-bold mb-2 text-primary-700">
+                Details
+              </h2>
+            </li>
             <li>
               <strong>Species:</strong>{" "}
               <span className="text-secondary-700">{dogData.species}</span>
@@ -72,8 +77,10 @@ const DogData = () => {
               </span>
             </li>
           </ul>
-          <h2 className="text-xl font-bold mb-2 text-primary-700">Owner</h2>
           <ul>
+            <li>
+              <h2 className="text-xl font-bold mb-2 text-primary-700">Owner</h2>
+            </li>
             <li>
               <strong>Name:</strong>{" "}
               <span className="text-secondary-700">{dogData.owner.name}</span>
@@ -109,7 +116,7 @@ const DogData = () => {
       ) : (
         <p>No dogs info!</p>
       )}
-    </>
+    </Wrapper>
   );
 };
 

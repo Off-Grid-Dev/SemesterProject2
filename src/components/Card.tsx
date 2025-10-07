@@ -19,7 +19,7 @@ const Card: FC<CardProps> = ({
   buttonVariant,
 }) => {
   return (
-    <div className="card-container bg-white rounded-xl shadow-lg border border-gray-200 p-6 max-w-sm mx-auto hover:shadow-xl transition-shadow duration-300">
+    <div className="card-container bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-shadow duration-300">
       <div className="flex items-center space-x-4 mb-4">
         <div className="w-12 h-12 rounded-full object-cover border-2 border-gray-200">
           <img src={avatar} alt="image of dog" />

@@ -6,7 +6,7 @@ type WrapperProps = {
 
 const Wrapper: FC<WrapperProps> = ({ children }) => {
   return (
-    <div className="md:max-w-[1140px] md:mx-auto sm:mx-[1rem] p-4">
+    <div className="w-full md:max-w-[1140px] md:mx-auto sm:mx-[1rem] p-4 flex justify-center">
       {children}
     </div>
   );
