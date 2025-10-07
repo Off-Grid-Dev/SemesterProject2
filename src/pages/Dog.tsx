@@ -1,114 +1,123 @@
-import { use, useEffect, useState } from "react";
+import { Suspense, use, type FC } from "react";
 import { fetchDogById } from "../api/fetch";
-import type { Dog } from "../api/fetch";
+import type { Dog as DogType } from "../api/fetch";
 import { useParams } from "react-router";
+import { ErrorBoundary } from "react-error-boundary";
 
-const Dog = () => {
-  const [dog, setDog] = useState<Dog | undefined>(undefined);
+// simple in‑memory cache
+const dogPromises = new Map<string, Promise<DogType | null>>();
+
+function getDogPromise(id: string) {
+  if (!dogPromises.has(id)) {
+    dogPromises.set(id, fetchDogById(id));
+  }
+  return dogPromises.get(id)!;
+}
+
+const Dog: FC = () => {
   const { id } = useParams();
 
-  useEffect(() => {
-    const dogData = id ? use(fetchDogById(id)) : undefined;
-
-    if (dogData) {
-      setDog(dogData);
-    } else {
-      console.error("no info on the doggy");
-    }
-  });
+  // only fetch once per id
+  const dogData: DogType | null = id
+    ? use(getDogPromise(id.replace(/^:/, "")))
+    : null;
 
   return (
-    <>
-      {dog ? (
-        <div className="mt-6 bg-primary-50 rounded-lg p-6 shadow text-primary-900 border border-primary-200">
-          <h2 className="text-xl font-bold mb-2 text-primary-700">Details</h2>
-          <ul className="mb-4">
-            <li>
-              <strong>Species:</strong>{" "}
-              <span className="text-secondary-700">${dog.species}</span>
-            </li>
-            <li>
-              <strong>Breed:</strong>{" "}
-              <span className="text-secondary-700">${dog.breed}</span>
-            </li>
-            <li>
-              <strong>Age:</strong>{" "}
-              <span className="text-secondary-700">${dog.age}</span>
-            </li>
-            <li>
-              <strong>Gender:</strong>{" "}
-              <span className="text-secondary-700">${dog.gender}</span>
-            </li>
-            <li>
-              <strong>Size:</strong>{" "}
-              <span className="text-secondary-700">${dog.size}</span>
-            </li>
-            <li>
-              <strong>Color:</strong>{" "}
-              <span className="text-secondary-700">${dog.color}</span>
-            </li>
-            <li>
-              <strong>Status:</strong>{" "}
-              <span className="text-secondary-700">${dog.adoptionStatus}</span>
-            </li>
-            <li>
-              <strong>Location:</strong>{" "}
-              <span className="text-secondary-700">${dog.location}</span>
-            </li>
-            <li>
-              <strong>Created:</strong>{" "}
-              <span className="text-secondary-700">
-                ${new Date(dog.created).toLocaleString()}
-              </span>
-            </li>
-            <li>
-              <strong>Updated:</strong>{" "}
-              <span className="text-secondary-700">
-                ${new Date(dog.updated).toLocaleString()}
-              </span>
-            </li>
-          </ul>
-          <h2 className="text-xl font-bold mb-2 text-primary-700">Owner</h2>
-          <ul>
-            <li>
-              <strong>Name:</strong>{" "}
-              <span className="text-secondary-700">${dog.owner.name}</span>
-            </li>
-            <li>
-              <strong>Email:</strong>{" "}
-              <span className="text-secondary-700">${dog.owner.email}</span>
-            </li>
-            <li>
-              <strong>Bio:</strong>{" "}
-              <span className="text-secondary-700">
-                ${dog.owner.bio ?? "N/A"}
-              </span>
-            </li>
-            <li>
-              <strong>Avatar:</strong>{" "}
-              <img
-                src="${dog.owner.avatar.url}"
-                alt="${
-        dog.owner.avatar.alt
-      }"
-                className="inline-block w-12 h-12 rounded-full border ml-2 align-middle border-secondary-300"
-              />
-            </li>
-            <li>
-              <strong>Banner:</strong>{" "}
-              <img
-                src="${dog.owner.banner.url}"
-                alt="${
-              dog.owner.banner.alt
-      }"
-                className="inline-block w-32 h-12 rounded border ml-2 align-middle object-cover border-secondary-300"
-              />
-            </li>
-          </ul>
-        </div>
-      ) : (
-        <p>No dogs info!</p>
-      )}
-    </>
+    <ErrorBoundary fallback={<p>Oh no! Couldn't fetch the dogs!</p>}>
+      <Suspense fallback={<p>loading...</p>}>
+        {dogData ? (
+          <div className="mt-6 bg-primary-50 rounded-lg p-6 shadow text-primary-900 border border-primary-200">
+            <h2 className="text-xl font-bold mb-2 text-primary-700">Details</h2>
+            <ul className="mb-4">
+              <li>
+                <strong>Species:</strong>{" "}
+                <span className="text-secondary-700">{dogData.species}</span>
+              </li>
+              <li>
+                <strong>Breed:</strong>{" "}
+                <span className="text-secondary-700">{dogData.breed}</span>
+              </li>
+              <li>
+                <strong>Age:</strong>{" "}
+                <span className="text-secondary-700">{dogData.age}</span>
+              </li>
+              <li>
+                <strong>Gender:</strong>{" "}
+                <span className="text-secondary-700">{dogData.gender}</span>
+              </li>
+              <li>
+                <strong>Size:</strong>{" "}
+                <span className="text-secondary-700">{dogData.size}</span>
+              </li>
+              <li>
+                <strong>Color:</strong>{" "}
+                <span className="text-secondary-700">{dogData.color}</span>
+              </li>
+              <li>
+                <strong>Status:</strong>{" "}
+                <span className="text-secondary-700">
+                  {dogData.adoptionStatus}
+                </span>
+              </li>
+              <li>
+                <strong>Location:</strong>{" "}
+                <span className="text-secondary-700">{dogData.location}</span>
+              </li>
+              <li>
+                <strong>Created:</strong>{" "}
+                <span className="text-secondary-700">
+                  {new Date(dogData.created).toLocaleString()}
+                </span>
+              </li>
+              <li>
+                <strong>Updated:</strong>{" "}
+                <span className="text-secondary-700">
+                  {new Date(dogData.updated).toLocaleString()}
+                </span>
+              </li>
+            </ul>
+            <h2 className="text-xl font-bold mb-2 text-primary-700">Owner</h2>
+            <ul>
+              <li>
+                <strong>Name:</strong>{" "}
+                <span className="text-secondary-700">{dogData.owner.name}</span>
+              </li>
+              <li>
+                <strong>Email:</strong>{" "}
+                <span className="text-secondary-700">
+                  {dogData.owner.email}
+                </span>
+              </li>
+              <li>
+                <strong>Bio:</strong>{" "}
+                <span className="text-secondary-700">
+                  {dogData.owner.bio ?? "N/A"}
+                </span>
+              </li>
+              <li>
+                <strong>Avatar:</strong>{" "}
+                <img
+                  src={dogData.owner.avatar.url}
+                  alt={dogData.owner.avatar.alt}
+                  className="inline-block w-12 h-12 rounded-full border ml-2 align-middle border-secondary-300"
+                />
+              </li>
+              <li>
+                <strong>Banner:</strong>{" "}
+                <img
+                  src={dogData.owner.banner.url}
+                  alt={dogData.owner.banner.alt}
+                  className="inline-block w-32 h-12 rounded border ml-2 align-middle object-cover border-secondary-300"
+                />
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <p>No dogs info!</p>
+        )}
+      </Suspense>
+    </ErrorBoundary>
   );
 };
+
+export default Dog;

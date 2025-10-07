@@ -7,13 +7,13 @@ import Layout from "./components/layout/Layout.tsx";
 const App = () => {
   return (
     <Router>
-      <Routes>
-        <Layout>
+      <Layout>
+        <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dogs" element={<Dogs />} />
-          <Route path="/dogs:id" element={<Dog />} />
-        </Layout>
-      </Routes>
+          <Route path={`/dogs/:id`} element={<Dog />} />
+        </Routes>
+      </Layout>
     </Router>
   );
 };

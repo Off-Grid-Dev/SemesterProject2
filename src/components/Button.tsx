@@ -23,7 +23,7 @@ const buttonClasses = (variant = "primary"): string => {
 
 const Button: FC<ButtonProps> = ({ children, buttonVariant, id }) => {
   return (
-    <Link className={buttonClasses(buttonVariant)} to={`/dogs:${id}`}>
+    <Link className={buttonClasses(buttonVariant)} to={`/dogs/${id}`}>
       {children}
     </Link>
   );

@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 const Home = () => {
   return (
     <>
@@ -10,11 +12,11 @@ const Home = () => {
           <button className="py-2 px-4 rounded-md border-2 border-green-300 bg-green-800 hover:border-green-900 transition-colors duration-300 cursor-pointer uppercase text-amber-50 hover:text-amber-300">
             login
           </button>
-          <a
-            href="/dogs"
+          <Link
+            to="/dogs"
             className="py-2 px-4 rounded-md border-2 border-green-300 bg-green-800 hover:border-green-900 transition-colors duration-300 cursor-pointer uppercase text-amber-50 hover:text-amber-300 flex items-center justify-center">
             Dogs
-          </a>
+          </Link>
         </div>
       </div>
     </>
